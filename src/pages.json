@@ -1,0 +1,92 @@
+{
+  "pages": [
+    {
+      "path": "pages/login/login",
+      "style": {
+        "navigationBarTitleText": "登录",
+        "navigationBarTextStyle": "white",
+        "navigationBarBackgroundColor": "#0a0a14",
+        "backgroundColor": "#0a0a14",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/home/home",
+      "style": {
+        "navigationBarTitleText": "智慧·家",
+        "navigationBarTextStyle": "white",
+        "navigationBarBackgroundColor": "#0a0a14",
+        "backgroundColor": "#0a0a14",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/devices/devices",
+      "style": {
+        "navigationBarTitleText": "设备",
+        "navigationBarTextStyle": "white",
+        "navigationBarBackgroundColor": "#0a0a14",
+        "backgroundColor": "#0a0a14",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/scenes/scenes",
+      "style": {
+        "navigationBarTitleText": "场景",
+        "navigationBarTextStyle": "white",
+        "navigationBarBackgroundColor": "#0a0a14",
+        "backgroundColor": "#0a0a14",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/profile/profile",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "navigationBarTextStyle": "white",
+        "navigationBarBackgroundColor": "#0a0a14",
+        "backgroundColor": "#0a0a14",
+        "navigationStyle": "custom"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "智慧家居",
+    "navigationBarBackgroundColor": "#0a0a14",
+    "backgroundColor": "#0a0a14"
+  },
+  "tabBar": {
+    "color": "#b0b0b0",
+    "selectedColor": "#ffc285",
+    "backgroundColor": "#14141e",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "static/icons/home.png",
+        "selectedIconPath": "static/icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/devices/devices",
+        "text": "设备",
+        "iconPath": "static/icons/device.png",
+        "selectedIconPath": "static/icons/device-active.png"
+      },
+      {
+        "pagePath": "pages/scenes/scenes",
+        "text": "场景",
+        "iconPath": "static/icons/scene.png",
+        "selectedIconPath": "static/icons/scene-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "static/icons/profile.png",
+        "selectedIconPath": "static/icons/profile-active.png"
+      }
+    ]
+  }
+}

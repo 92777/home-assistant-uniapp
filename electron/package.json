@@ -1,0 +1,62 @@
+{
+  "name": "home-assistant-client",
+  "version": "1.0.0",
+  "description": "Home Assistant Desktop Client for macOS",
+  "main": "electron/main.js",
+  "author": "Your Name",
+  "license": "MIT",
+  "scripts": {
+    "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:8080 && cross-env NODE_ENV=development electron .\"",
+    "electron:build": "npm run build && electron-builder",
+    "electron:build:mac": "npm run build && electron-builder --mac",
+    "dev": "python3 -m http.server 8080",
+    "build": "mkdir -p dist && cp index.html dist/"
+  },
+  "build": {
+    "appId": "com.homeassistant.client",
+    "productName": "Home Assistant",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        },
+        {
+          "target": "zip",
+          "arch": ["x64", "arm64"]
+        }
+      ],
+      "icon": "build/icon.icns"
+    },
+    "dmg": {
+      "title": "Home Assistant",
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    }
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "cross-env": "^7.0.3",
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.0",
+    "wait-on": "^7.0.1"
+  }
+}
