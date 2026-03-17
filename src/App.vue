@@ -17,7 +17,7 @@
         console.log('App Launch')
         
         // 开发模式：使用提供的 token 自动登录
-        const devToken = 'REDACTED_TOKEN'
+        const devToken = ''
         const devUrl = 'https://demo.example.com'
         
         // 检查是否有保存的配置
