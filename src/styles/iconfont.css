@@ -16,13 +16,18 @@
 .icon-house::before { content: '\f015'; }
 .icon-user::before { content: '\f007'; }
 .icon-bell::before { content: '\f0f3'; }
+.icon-search::before { content: '\f002'; }
+.icon-times::before { content: '\f00d'; }
+.icon-microphone::before { content: '\f130'; }
 .icon-gear::before { content: '\f013'; }
 .icon-lightbulb::before { content: '\f0eb'; }
 .icon-toggle-on::before { content: '\f205'; }
+.icon-toggle-off::before { content: '\f204'; }
 .icon-snowflake::before { content: '\f2dc'; }
-.icon-curtain::before { content: '\f6b9'; }
+.icon-curtain::before { content: '\f52b'; }
 .icon-lock::before { content: '\f023'; }
 .icon-fan::before { content: '\f863'; }
+.icon-bolt::before { content: '\f0e7'; }
 .icon-tv::before { content: '\f26c'; }
 .icon-microchip::before { content: '\f2db'; }
 .icon-thermometer::before { content: '\f491'; }
@@ -33,9 +38,12 @@
 
 /* 天气图标 */
 .icon-cloud::before { content: '\f0c2'; }
+.icon-cloud-sun::before { content: '\f6c4'; }
 .icon-cloud-moon::before { content: '\f6c3'; }
 .icon-cloud-rain::before { content: '\f73d'; }
+.icon-cloud-bolt::before { content: '\f76c'; }
 .icon-snowflake::before { content: '\f2dc'; }
+.icon-smog::before { content: '\f75f'; }
 .icon-droplet::before { content: '\f043'; }
 .icon-wind::before { content: '\f72e'; }
 
@@ -51,6 +59,12 @@
 .icon-signal::before { content: '\f012'; }
 .icon-wifi::before { content: '\f1eb'; }
 .icon-battery-full::before { content: '\f240'; }
+.icon-compass::before { content: '\f14e'; }
+.icon-clock::before { content: '\f017'; }
+.icon-sun::before { content: '\f185'; }
+.icon-sliders::before { content: '\f1de'; }
+.icon-circle-play::before { content: '\f144'; }
+.icon-shield-halved::before { content: '\f3ed'; }
 
 /* 导航图标 */
 .icon-chevron-right::before { content: '\f054'; }

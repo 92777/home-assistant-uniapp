@@ -5,60 +5,48 @@
    */
   import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
   import { useHAStore } from './store/ha-store.js'
+  import { apiService } from './api/ha-api.js'
 
   export default {
     setup() {
       const store = useHAStore()
+
+      function goHome() {
+        uni.reLaunch({
+          url: '/pages/home/home'
+        })
+      }
 
       /**
        * 应用启动
        */
       onLaunch(async () => {
         console.log('App Launch')
-        
-        // 开发模式：使用提供的 token 自动登录
-        const devToken = ''
-        const devUrl = 'https://demo.example.com'
-        
-        // 检查是否有保存的配置
+
         const hasConfig = store.loadConfig()
-        
-        if (hasConfig) {
-          // 尝试自动连接
+        const savedUrl = uni.getStorageSync('ha_url')
+        const savedToken = uni.getStorageSync('ha_token')
+
+        if (hasConfig && savedUrl && savedToken && apiService.isRuntimeCompatibleUrl(savedUrl)) {
           try {
-            await store.initConnection(
-              uni.getStorageSync('ha_url'),
-              uni.getStorageSync('ha_token')
-            )
-            
+            await store.initConnection(savedUrl, savedToken)
+
             console.log('自动连接成功')
+            goHome()
+            return
           } catch (error) {
             console.error('自动连接失败:', error)
-            // 连接失败，使用开发 token
-            try {
-              await store.initConnection(devUrl, devToken)
-              console.log('使用开发 token 连接成功')
-            } catch (devError) {
-              console.error('开发 token 连接失败:', devError)
-              // 跳转到登录页
-              uni.redirectTo({
-                url: '/pages/login/login'
-              })
-            }
+            apiService.clearSavedConfig()
+            store.clearCache()
           }
-        } else {
-          // 没有配置，使用开发 token 自动登录
-          try {
-            await store.initConnection(devUrl, devToken)
-            console.log('使用开发 token 连接成功')
-          } catch (error) {
-            console.error('开发 token 连接失败:', error)
-            // 跳转到登录页
-            uni.redirectTo({
-              url: '/pages/login/login'
-            })
-          }
+        } else if (savedUrl || savedToken) {
+          apiService.clearSavedConfig()
+          store.clearCache()
         }
+
+        uni.reLaunch({
+          url: '/pages/login/login'
+        })
       })
 
       /**

@@ -11,6 +11,16 @@
       }
     },
     {
+      "path": "pages/search/search",
+      "style": {
+        "navigationBarTitleText": "搜索",
+        "navigationBarTextStyle": "white",
+        "navigationBarBackgroundColor": "#0a0a14",
+        "backgroundColor": "#0a0a14",
+        "navigationStyle": "custom"
+      }
+    },
+    {
       "path": "pages/home/home",
       "style": {
         "navigationBarTitleText": "智慧·家",
@@ -70,16 +80,16 @@
         "selectedIconPath": "static/icons/home-active.png"
       },
       {
-        "pagePath": "pages/devices/devices",
-        "text": "设备",
-        "iconPath": "static/icons/device.png",
-        "selectedIconPath": "static/icons/device-active.png"
-      },
-      {
         "pagePath": "pages/scenes/scenes",
         "text": "场景",
         "iconPath": "static/icons/scene.png",
         "selectedIconPath": "static/icons/scene-active.png"
+      },
+      {
+        "pagePath": "pages/devices/devices",
+        "text": "设备",
+        "iconPath": "static/icons/device.png",
+        "selectedIconPath": "static/icons/device-active.png"
       },
       {
         "pagePath": "pages/profile/profile",
