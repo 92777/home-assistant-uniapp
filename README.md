@@ -1,51 +1,133 @@
-# Home Assistant UniApp
+# home-assistant-uniapp
 
-基于 UniApp 开发的 Home Assistant 移动端客户端，提供现代化的智能家居控制界面。
+一个面向手机端和 Pad 端的 Home Assistant 客户端项目。
 
-## 功能特性
+这个项目的目标，不是简单把 HA Web 页面包一层，而是把 Home Assistant 里的房间、设备、实体、场景执行、状态变更和室内环境信息，整理成更适合移动端日常使用的一套交互界面。
 
-- 🏠 **首页**: 展示天气、室内环境、正在运行的设备和常用设备
-- 📱 **设备管理**: 按房间分组展示设备，支持展开查看实体详情
-- 🎬 **场景模式**: 一键执行预设场景，快速切换家居模式
-- 👤 **个人中心**: 用户信息、设置和连接状态管理
+当前界面风格基于 `reference.html` 继续演进，整体使用统一的天气动态背景、毛玻璃卡片、移动端优先布局，并兼顾 Pad 横向空间。
+
+## 项目定位
+
+- 面向 Home Assistant 的跨端客户端，当前重点是 `H5` 和 `UniApp` 移动端体验。
+- 强调“房间 -> 设备 -> 实体类型 -> 实体”的可理解结构，而不是直接暴露一整页实体列表。
+- 优先展示对人有意义的设备、运行状态、室内环境、通知和健康信息。
+- 支持本地开发时通过 Vite 代理接入远端 Home Assistant，避免浏览器跨域问题。
+
+## 当前功能
+
+### 1. 首页
+
+- 展示天气、动态天气背景和城市信息
+- 展示室内环境实时数据与 24 小时变化切换
+- 展示正在运行的真实设备
+- 展示常用设备卡片
+- 展示 WebSocket 推送的设备通知和高优先级提醒
+
+### 2. 设备页
+
+- 按房间展示设备
+- 每台设备支持弹出详情面板
+- 详情面板按实体类型分组，例如灯光、开关、风机、温控、传感器、状态
+- 设备控制带防抖和 loading，优先等待 WS 状态确认
+
+### 3. 场景页
+
+- 作为执行中心使用
+- 可承载场景、脚本和常用服务动作
+- 支持展示最近执行结果
+
+### 4. 搜索页
+
+- 搜索房间、设备和实体
+- 可从搜索结果跳转并定位到目标设备
+
+### 5. 我的页
+
+- 展示连接状态
+- 展示设备健康概览
+- 作为个人信息、入口和偏好聚合页
+
+### 6. 实时能力
+
+- 通过 Home Assistant WebSocket 订阅 `state_changed`
+- 接收设备状态变化通知
+- 显示轻量连接状态点，区分 `实时`、`重连`、`连接`、`REST`
 
 ## 技术栈
 
-- **前端框架**: Vue 3 + UniApp
-- **状态管理**: Pinia
-- **构建工具**: Vite
-- **UI 设计**: 毛玻璃风格，参考 reference.html
+- `Vue 3`
+- `Pinia`
+- `UniApp`
+- `Vite`
+- `Home Assistant REST API`
+- `Home Assistant WebSocket API`
 
-## 项目结构
+## 目录结构
 
-```
+```text
 src/
-├── api/              # API 服务
-│   └── ha-api.js     # Home Assistant API 封装
-├── components/       # 公共组件
-│   └── CustomTabbar.uvue
-├── pages/            # 页面
-│   ├── home/         # 首页
-│   ├── devices/      # 设备页
-│   ├── scenes/       # 场景页
-│   ├── profile/      # 我的页
-│   └── login/        # 登录页
-├── store/            # 状态管理
-│   └── ha-store.js   # Home Assistant 状态管理
-├── styles/           # 样式文件
-│   ├── common.css    # 通用样式
-│   └── iconfont.css  # 图标字体
-├── App.uvue          # 应用入口
-├── main.js           # 主入口
-└── pages.json        # 页面配置
+├── api/
+│   └── ha-api.js              # Home Assistant API、WS、登录和天气请求封装
+├── components/
+│   ├── ConnectionStatusDot.vue
+│   ├── CustomTabbar.vue
+│   └── WeatherBackdrop.vue
+├── pages/
+│   ├── login/
+│   ├── search/
+│   ├── home/
+│   ├── devices/
+│   ├── scenes/
+│   └── profile/
+├── store/
+│   └── ha-store.js            # 全局状态、实体缓存、通知、趋势、控制状态
+├── styles/
+│   ├── common.css
+│   └── iconfont.css
+├── utils/
+│   ├── device-catalog.js      # 房间/设备/实体展示模型
+│   ├── insights.js            # 趋势、健康、通知、执行中心
+│   └── weather.js             # 天气解析与场景映射
+├── App.vue
+├── main.js
+└── pages.json
 ```
 
-## 开发指南
+## 页面结构
+
+- `pages/login/login`
+  负责用户名密码登录、MFA 验证
+- `pages/home/home`
+  负责首页概览、通知中心、室内环境和常用设备
+- `pages/devices/devices`
+  负责房间与设备目录、设备详情和实体控制
+- `pages/scenes/scenes`
+  负责执行中心
+- `pages/search/search`
+  负责搜索与定位
+- `pages/profile/profile`
+  负责连接状态、设备健康和个人入口
+
+## 数据模型说明
+
+这个项目内部不是直接拿 HA 原始实体列表平铺展示，而是做了一层整理：
+
+1. 从 HA 拉取 `states`
+2. 通过注册表拉取 `area / device / entity registry`
+3. 组合成“房间 -> 设备 -> 实体”
+4. 再按实体类型分组，形成适合界面展示的结构
+
+这层转换主要集中在：
+
+- `src/utils/device-catalog.js`
+- `src/store/ha-store.js`
+
+## 本地开发
 
 ### 环境要求
 
-- Node.js >= 16.0.0
-- npm >= 8.0.0
+- `Node.js >= 16`
+- `npm >= 8`
 
 ### 安装依赖
 
@@ -53,81 +135,89 @@ src/
 npm install
 ```
 
-### 启动开发服务器
+### 启动 H5 开发
 
 ```bash
-# H5 开发
 npm run dev:h5
+```
 
-# App 开发
+默认启动地址：
+
+```text
+http://localhost:8080/
+```
+
+### 构建 H5
+
+```bash
+npm run build:h5
+```
+
+### 启动 App 构建
+
+```bash
 npm run dev:app
 ```
 
-### 构建生产版本
+## H5 本地代理
 
-```bash
-# 构建 H5
-npm run build:h5
+为了避免浏览器直接请求远端 Home Assistant 时出现跨域问题，H5 开发模式建议通过本地代理访问。
 
-# 构建 App
-npm run build:app
+项目已提供示例文件：
+
+```text
+.env.example
 ```
 
-## 使用说明
+本地开发时，在项目根目录新建 `.env.local`：
 
-### 1. 获取 Home Assistant 访问令牌
+```bash
+cp .env.example .env.local
+```
 
-1. 登录 Home Assistant Web 界面
-2. 进入个人资料页面 (http://IP_ADDRESS:8123/profile)
-3. 在"长期访问令牌"部分创建新令牌
-4. 复制生成的令牌
+然后把里面的地址改成你自己的 Home Assistant 地址：
 
-### 2. 连接 Home Assistant
+```env
+VITE_HA_PROXY_TARGET=https://your-home-assistant.example.com
+```
 
-1. 启动应用后，会自动跳转到登录页
-2. 输入 Home Assistant 服务器地址 (如: http://192.168.1.100:8123)
-3. 输入访问令牌
-4. 点击"连接"按钮
+修改后重新启动 `npm run dev:h5` 即可。
 
-### 3. 控制设备
+说明：
 
-- **首页**: 点击常用设备卡片可以快速控制
-- **设备页**: 按房间查看所有设备，点击展开查看实体详情
-- **场景页**: 点击场景卡片执行预设场景
+- `.env.local` 已在 `.gitignore` 中忽略
+- 不要把真实服务器地址、Token、账号密码提交到仓库
 
-## 开发规范
+## 登录方式
 
-详见 `.trae/skills/development-guidelines/SKILL.md`
+当前登录流程以 Home Assistant 官方登录流为主：
 
-### 核心原则
+- 用户名 + 密码
+- 支持 MFA
+- 登录成功后会缓存 `ha_url` 和 `ha_token`
+- 应用重启后会优先尝试自动连接
 
-1. **数据与样式分离**: 通过 Vue 的数据绑定实现，不要在处理完数据之后再去操作样式
-2. **数据缓存**: 尽可能缓存账号、房间、设备、实体、实体状态等信息
-3. **代码复用**: 抽取公共组件和工具函数，避免重复代码
-4. **API 文档遵循**: 所有开发基于 API 文档，禁止幻想不存在的字段或接口
+## 天气与背景
 
-## API 文档
+- 天气数据当前接入中国天气网相关接口
+- 首页和其他页面共用统一的天气背景组件
+- 会根据天气场景切换为晴、多云、雨、雪、沙尘、雷暴等背景表现
 
-详见 `.trae/skills/home-assistant-api/SKILL.md`
+## 当前重点能力
 
-### REST API
-
-- `GET /api/states`: 获取所有实体状态
-- `GET /api/states/<entity_id>`: 获取特定实体状态
-- `POST /api/services/<domain>/<service>`: 调用服务
-
-### WebSocket API
-
-- 实时订阅状态变化事件
-- 实时接收设备状态更新
+- 设备控制的 WS 确认与防抖
+- 设备健康过滤误报
+- 室内环境 24h 变化
+- 通知中心
+- 连接状态感知
+- 手机端和 Pad 端兼容布局
 
 ## 注意事项
 
-1. **本地调试**: 使用 Vite 服务器进行调试，运行 `npm run dev:h5`
-2. **代码修改**: 禁止在未经同意的情况下大面积修改代码
-3. **日志管理**: 非必要不要创建过多的日志进行调试
-4. **版本管理**: 不要创建过多的易混淆的备份版本
+- Home Assistant 的真实可用设备、实体、服务，以当前接入实例为准
+- 某些页面能力依赖 WS 和注册表，如果代理未配置好，H5 下可能退化到 REST 模式
+- 本项目当前更适合作为移动端家庭控制面板，不是完整替代 HA Web 的管理后台
 
 ## 许可证
 
-MIT License
+MIT
