@@ -153,6 +153,31 @@ http://localhost:8080/
 npm run build:h5
 ```
 
+### Android TV 原型预览
+
+第一阶段 TV 原型优先保证 H5 在 1920x1080 横屏下可预览：
+
+```bash
+npm run dev:h5
+```
+
+默认大屏横屏会自动进入 TV 模式；也可以在地址后追加 `?tv=1` 强制启用，例如：
+
+```text
+http://localhost:8080/?tv=1
+```
+
+TV 模式会启用横屏大屏布局、可聚焦卡片/按钮高亮，以及方向键、Enter、Back/Escape 的基础焦点导航。后续打包 APK 前，还需要在真机电视或模拟器上验证遥控器键值和 Android TV manifest/渠道配置。
+
+Android TV 打包前建议核对：
+
+- 保持纯客户端形态，不新增本地或远端后端、代理服务、额外部署进程；服务端仍是用户内网 Home Assistant。
+- 登录/配置可继续使用现有官方登录流，或由用户填写内网 Home Assistant 地址与 token/账号密码。
+- 登录页支持纯客户端局域网自动探测：电视和 Home Assistant 处于同一内网时，高级设置默认收起，可不填，应用会短时间扫描缓存地址、`homeassistant.local:8123`、`homeassistant:8123`、常见内网网段的 `http://IP:8123`，命中后再按顺序尝试 token 或账号密码登录；高级设置里可填写服务器地址/IP 和端口（默认 `8123`）作为优先候选，填写 IP 时会优先扫描该 IP 所在 `/24` 网段，自动探测失败时也可作为手动兜底入口。
+- 自动探测在 APK/电视内网环境更可靠；H5 预览会受浏览器 CORS、混合内容、局域网访问策略影响，无法探测时请手动填写 HA 地址，或通过本地 Vite 代理接入。
+- Android manifest 需要结合 HBuilder/UniApp 打包链路验证横屏配置、Leanback launcher 入口、遥控器 Back 键行为和电视设备兼容声明。
+- 真机/模拟器上重点验证软键盘唤起、遥控器方向键键值、Enter/OK 键触发和 Back 键关闭弹层/返回页面的优先级。
+
 ### 启动 App 构建
 
 ```bash

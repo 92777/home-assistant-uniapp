@@ -3,7 +3,7 @@
     <WeatherBackdrop />
     <view class="page-content search-content">
       <view class="search-topbar">
-        <view class="back-btn" @click="goBack">
+        <view class="back-btn" data-tv-focus @click="goBack">
           <text class="iconfont icon-chevron-right back-icon"></text>
         </view>
         <view class="glass-card search-input-shell">
@@ -11,6 +11,7 @@
           <input
             v-model="searchText"
             class="search-input"
+            data-tv-focus
             type="text"
             focus
             placeholder="搜索设备、房间、传感器..."
@@ -20,6 +21,7 @@
           <text
             v-if="searchText"
             class="iconfont icon-times clear-icon"
+            data-tv-focus
             @click="clearSearch"
           ></text>
         </view>
@@ -36,6 +38,7 @@
             v-for="device in filteredDevices"
             :key="device.entity_id"
             class="glass-card result-item"
+            data-tv-focus
             @click="handleDeviceClick(device)"
           >
             <view :class="['device-icon', 'result-icon', getDeviceTone(device)]">
@@ -67,6 +70,7 @@
               v-for="(item, index) in searchHistory"
               :key="`${item}-${index}`"
               class="tag-item"
+              data-tv-focus
               @click="handleHistoryClick(item)"
             >
               {{ item }}
@@ -84,6 +88,7 @@
               v-for="(item, index) in hotSearches"
               :key="`${item}-${index}`"
               class="tag-item hot"
+              data-tv-focus
               @click="handleHotClick(item)"
             >
               {{ item }}

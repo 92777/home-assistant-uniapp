@@ -6,6 +6,7 @@
   import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
   import { useHAStore } from './store/ha-store.js'
   import { apiService } from './api/ha-api.js'
+  import { setupTvFocusNavigation } from './utils/tv-focus.js'
 
   export default {
     setup() {
@@ -22,6 +23,7 @@
        */
       onLaunch(async () => {
         console.log('App Launch')
+        setupTvFocusNavigation()
 
         const hasConfig = store.loadConfig()
         const savedUrl = uni.getStorageSync('ha_url')
@@ -74,4 +76,7 @@
   
   /* 图标字体 */
   @import './styles/iconfont.css';
+
+  /* Android TV / large landscape prototype styles */
+  @import './styles/tv.css';
 </style>

@@ -1,0 +1,395 @@
+/* Android TV / large landscape prototype styles */
+
+html.tv-mode,
+body.tv-mode,
+.tv-mode page,
+page.tv-mode {
+  --tv-safe-x: clamp(48px, 5vw, 96px);
+  --tv-safe-y: clamp(28px, 4vh, 56px);
+  --tv-focus: #ffd19a;
+  cursor: none;
+}
+
+.tv-mode .page-shell {
+  min-height: 100vh;
+  padding: var(--tv-safe-y) var(--tv-safe-x);
+}
+
+.tv-mode .page-content {
+  box-sizing: border-box;
+  width: min(100%, 1760px);
+  max-width: none;
+  min-height: calc(100vh - var(--tv-safe-y) * 2);
+  padding: clamp(28px, 3vw, 52px) clamp(32px, 4vw, 64px) 138px;
+  border-radius: 42px;
+}
+
+.tv-mode .status-bar {
+  font-size: 20px;
+  margin-bottom: 24px;
+}
+
+.tv-mode .page-title {
+  font-size: clamp(46px, 4vw, 76px);
+}
+
+.tv-mode .page-subtitle,
+.tv-mode .brand-note {
+  font-size: clamp(20px, 1.4vw, 26px);
+}
+
+.tv-mode .section {
+  margin-top: 30px;
+}
+
+.tv-mode .section-title {
+  font-size: 30px;
+}
+
+.tv-mode .section-link,
+.tv-mode .glass-pill {
+  min-height: 42px;
+  padding: 0 18px;
+  font-size: 18px;
+}
+
+.tv-mode .glass-card {
+  border-radius: 32px;
+  box-shadow:
+    0 26px 70px rgba(0, 0, 0, 0.44),
+    0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+}
+
+.tv-mode .activity-strip,
+.tv-mode .common-list,
+.tv-mode .action-grid,
+.tv-mode .room-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.tv-mode .activity-pill,
+.tv-mode .common-card,
+.tv-mode .room-card,
+.tv-mode .action-card,
+.tv-mode .menu-item {
+  min-height: 150px;
+  padding: 24px;
+}
+
+.tv-mode .activity-title,
+.tv-mode .common-name,
+.tv-mode .device-name,
+.tv-mode .action-title,
+.tv-mode .menu-text {
+  font-size: clamp(24px, 1.7vw, 32px);
+}
+
+.tv-mode .activity-count,
+.tv-mode .common-room,
+.tv-mode .device-status,
+.tv-mode .action-desc,
+.tv-mode .menu-desc {
+  font-size: clamp(18px, 1.1vw, 22px);
+}
+
+.tv-mode .device-icon,
+.tv-mode .common-icon,
+.tv-mode .row-icon,
+.tv-mode .action-icon,
+.tv-mode .menu-icon {
+  width: 72px;
+  height: 72px;
+  font-size: 32px;
+}
+
+.tv-mode .climate-panel,
+.tv-mode .climate-trend-grid,
+.tv-mode .health-stats {
+  gap: 22px;
+}
+
+.tv-mode .climate-metric,
+.tv-mode .climate-trend-item {
+  min-height: 240px;
+}
+
+.tv-mode .metric-icon {
+  width: 76px;
+  height: 76px;
+  font-size: 36px;
+}
+
+.tv-mode .metric-value {
+  font-size: clamp(48px, 4vw, 82px);
+}
+
+.tv-mode .metric-title,
+.tv-mode .climate-trend-label,
+.tv-mode .climate-trend-note {
+  font-size: 20px;
+}
+
+.tv-mode .custom-tabbar-shell {
+  left: 50%;
+  right: auto;
+  width: min(980px, 62vw);
+  transform: translateX(-50%);
+  padding-bottom: 28px;
+}
+
+.tv-mode .custom-tabbar {
+  padding: 16px 22px;
+  border-radius: 54px;
+}
+
+.tv-mode .tabbar-item {
+  min-height: 72px;
+  font-size: 18px;
+}
+
+.tv-mode .tabbar-item .iconfont {
+  font-size: 34px;
+}
+
+.tv-mode .sheet-mask,
+.tv-mode .notice-mask {
+  align-items: center;
+  padding: 56px;
+}
+
+.tv-mode .device-sheet-panel,
+.tv-mode .notice-panel {
+  width: min(1280px, 82vw);
+  max-height: min(760px, 78vh);
+}
+
+.tv-mode .login-page .login-content {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(520px, 0.8fr);
+  align-items: center;
+  gap: 48px;
+  justify-content: stretch;
+  padding-top: clamp(28px, 3vw, 52px);
+  padding-bottom: 138px;
+}
+
+.tv-mode .login-page .logo-wrap,
+.tv-mode .login-page .login-panel,
+.tv-mode .login-page .helper-card {
+  max-width: none;
+}
+
+.tv-mode .login-page .login-header {
+  text-align: left;
+}
+
+.tv-mode .login-page .logo-badge {
+  width: 128px;
+  height: 128px;
+  margin: 0 0 28px;
+  border-radius: 42px;
+  font-size: 58px;
+}
+
+.tv-mode .login-page .logo-text {
+  font-size: clamp(64px, 5vw, 92px);
+}
+
+.tv-mode .login-page .logo-subtitle,
+.tv-mode .login-page .helper-text,
+.tv-mode .login-page .panel-desc,
+.tv-mode .login-page .discovery-desc,
+.tv-mode .login-page .discovery-hint,
+.tv-mode .login-page .advanced-desc {
+  font-size: 22px;
+}
+
+.tv-mode .login-page .login-panel {
+  padding: 36px;
+}
+
+.tv-mode .login-page .panel-title {
+  font-size: 36px;
+}
+
+.tv-mode .login-page .discovery-card {
+  padding: 22px;
+  border-radius: 24px;
+}
+
+.tv-mode .login-page .discovery-title {
+  font-size: 24px;
+}
+
+.tv-mode .login-page .advanced-toggle {
+  padding: 22px;
+  border-radius: 24px;
+}
+
+.tv-mode .login-page .advanced-title {
+  font-size: 24px;
+}
+
+.tv-mode .login-page .advanced-fields {
+  gap: 20px;
+}
+
+.tv-mode .login-page .form-list {
+  gap: 22px;
+}
+
+.tv-mode .login-page .form-label {
+  font-size: 22px;
+}
+
+.tv-mode .login-page .form-input,
+.tv-mode .search-input {
+  height: 72px;
+  font-size: 26px;
+}
+
+.tv-mode .login-page .form-input {
+  padding: 0 22px;
+  border-radius: 22px;
+}
+
+.tv-mode .login-page .primary-btn,
+.tv-mode .login-page .ghost-btn {
+  height: 72px;
+  border-radius: 24px;
+  font-size: 24px;
+}
+
+.tv-mode .login-page .helper-card {
+  grid-column: 2;
+  padding: 28px;
+}
+
+.tv-mode .search-topbar {
+  gap: 22px;
+  margin-bottom: 32px;
+}
+
+.tv-mode .back-btn {
+  width: 72px;
+  height: 72px;
+  font-size: 28px;
+}
+
+.tv-mode .search-input-shell {
+  min-height: 86px;
+  padding: 8px 24px;
+  border-radius: 32px;
+}
+
+.tv-mode .search-icon,
+.tv-mode .clear-icon {
+  font-size: 28px;
+}
+
+.tv-mode .result-section,
+.tv-mode .discover-section,
+.tv-mode .result-list {
+  gap: 22px;
+}
+
+.tv-mode .result-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.tv-mode .result-item {
+  min-height: 132px;
+  padding: 24px;
+}
+
+.tv-mode .result-name,
+.tv-mode .hint-title,
+.tv-mode .helper-title {
+  font-size: 28px;
+}
+
+.tv-mode .result-status,
+.tv-mode .result-desc,
+.tv-mode .hint-desc {
+  font-size: 20px;
+}
+
+.tv-mode .tag-list {
+  gap: 18px;
+}
+
+.tv-mode .tag-item {
+  min-height: 56px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font-size: 22px;
+}
+
+.tv-focusable {
+  outline: none;
+}
+
+.tv-mode .tv-focus-current {
+  transform: translateY(-4px) scale(1.025);
+  border-color: rgba(255, 209, 154, 0.9) !important;
+  box-shadow:
+    0 0 0 4px rgba(255, 209, 154, 0.24),
+    0 18px 52px rgba(0, 0, 0, 0.46),
+    0 0 32px rgba(255, 194, 133, 0.34) !important;
+}
+
+.tv-mode .tabbar-item.tv-focus-current,
+.tv-mode .icon-btn.tv-focus-current,
+.tv-mode .notice-close.tv-focus-current,
+.tv-mode .detail-close.tv-focus-current,
+.tv-mode .section-link.tv-focus-current,
+.tv-mode .back-btn.tv-focus-current,
+.tv-mode .clear-icon.tv-focus-current,
+.tv-mode .primary-btn.tv-focus-current,
+.tv-mode .ghost-btn.tv-focus-current,
+.tv-mode .tag-item.tv-focus-current {
+  background: rgba(255, 194, 133, 0.18);
+  color: var(--tv-focus);
+}
+
+.tv-mode input.tv-focus-current,
+.tv-mode .form-input.tv-focus-current,
+.tv-mode .search-input.tv-focus-current {
+  transform: none;
+  border-color: rgba(255, 209, 154, 0.9) !important;
+  box-shadow:
+    0 0 0 4px rgba(255, 209, 154, 0.26),
+    0 0 30px rgba(255, 194, 133, 0.2) !important;
+}
+
+@media (min-width: 1600px) and (orientation: landscape) {
+  .tv-mode .home-content {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    grid-auto-rows: min-content;
+    column-gap: 28px;
+  }
+
+  .tv-mode .home-content > .status-bar,
+  .tv-mode .home-content > .main-header,
+  .tv-mode .home-content > .alert-card,
+  .tv-mode .home-content > .activity-strip {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 1199px), (orientation: portrait) {
+  .tv-mode .login-page .login-content {
+    display: flex;
+  }
+
+  .tv-mode .login-page .login-header {
+    text-align: center;
+  }
+
+  .tv-mode .login-page .helper-card {
+    grid-column: auto;
+  }
+}

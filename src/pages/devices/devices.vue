@@ -54,7 +54,7 @@
               :key="device.id"
               :class="['device-shell', { highlighted: highlightDeviceId === device.id }]"
             >
-              <view class="device-row" @click="openDeviceSheet(room, device)">
+              <view class="device-row" data-tv-focus @click="openDeviceSheet(room, device)">
                 <view :class="['device-icon', 'row-icon', device.tone]">
                   <text :class="['iconfont', device.icon]"></text>
                 </view>
@@ -86,7 +86,7 @@
             <text class="detail-room">{{ activeRoom?.fullName || activeRoom?.name || '设备详情' }}</text>
             <text class="detail-title">{{ activeDevice.name }}</text>
           </view>
-          <view class="detail-close" @click="closeDeviceSheet">
+          <view class="detail-close" data-tv-focus @click="closeDeviceSheet">
             <text class="iconfont icon-times"></text>
           </view>
         </view>
@@ -108,6 +108,7 @@
                   v-for="entity in group.entities"
                   :key="entity.entity_id"
                   :class="['entity-row', { pending: isEntityPending(entity.entity_id) }]"
+                  data-tv-focus
                   @click="handleEntityClick(entity)"
                 >
                   <view class="entity-leading">
